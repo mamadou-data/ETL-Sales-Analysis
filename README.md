@@ -12,16 +12,15 @@ Ce projet met en place un **pipeline ETL automatisé** permettant d'extraire, tr
 ---
 
 ## ⚙️ Architecture du pipeline ETL
+```
 📍 **Étapes du pipeline :**
 1️⃣ **Extraction** : Récupération des données via **l’API Kaggle**
 2️⃣ **Transformation** : Nettoyage des valeurs manquantes, encodage et typage des données
 3️⃣ **Chargement** : Stockage optimisé dans **PostgreSQL** via `\copy`
 4️⃣ **Visualisation** : Connexion à **Power BI** pour l'analyse interactive
-
-![ETL Architecture](https://raw.githubusercontent.com/your-repo-path/etl_pipeline_architecture.png)
+```
 
 ---
-
 ## 🔹 Étape 1 : Extraction des données via l'API Kaggle
 Nous utilisons l'API Kaggle pour récupérer les données du dataset **Retail Sales Data**.
 
