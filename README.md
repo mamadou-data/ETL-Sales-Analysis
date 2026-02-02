@@ -14,11 +14,15 @@ Ce projet met en place un **pipeline ETL automatisé** permettant d'extraire, tr
 ## ⚙️ Architecture du pipeline ETL
 
 📍 **Étapes du pipeline :**
-1️⃣ **Extraction** : Récupération des données via **l’API Kaggle**
-2️⃣ **Transformation** : Nettoyage des valeurs manquantes, encodage et typage des données
-3️⃣ **Chargement** : Stockage optimisé dans **PostgreSQL** via `\copy`
-4️⃣ **Visualisation** : Connexion à **Power BI** pour l'analyse interactive
+```
+1️⃣ Extraction : Récupération des données via l’API Kaggle
 
+2️⃣ Transformation : Nettoyage des valeurs manquantes, encodage et typage des données
+
+3️⃣ Chargement : Stockage optimisé dans **PostgreSQL via "copy"
+
+4️⃣ Visualisation : Connexion à Power BI** pour l'analyse interactive
+```
 ---
 ## 🔹 Étape 1 : Extraction des données via l'API Kaggle
 Nous utilisons l'API Kaggle pour récupérer les données du dataset **Retail Sales Data**.
@@ -38,10 +42,11 @@ pip install kaggle
 import kaggle
 ```
 # Télécharger les données Kaggle
+```
 dataset = "noir1112/retail-sales-data"
 kaggle.api.dataset_download_files(dataset, path="data/", unzip=True)
 print("✅ Données téléchargées avec succès !")
-
+```
 ---
 
 ## 🔹 Étape 2 : Transformation et nettoyage des données avec Pandas
@@ -58,6 +63,7 @@ file_path = "data/sales_100k.csv"
 df = pd.read_csv(file_path, encoding='utf-8')
 
 # Nettoyage des données
+```
 df.drop(columns=['Unnamed: 0', 'Sales_ID'], inplace=True, errors='ignore')
 df.fillna({
     'Sales_Amount': df['Sales_Amount'].mean(),
@@ -65,16 +71,18 @@ df.fillna({
     'Customer_Age': df['Customer_Age'].median(),
     'Customer_Gender': "Unknown"
 }, inplace=True)
-
+```
 # Conversion des types
+```
 df['Date_of_Sale'] = pd.to_datetime(df['Date_of_Sale'], errors='coerce')
 df['Customer_Age'] = df['Customer_Age'].astype('Int64')
-
+```
 # Sauvegarder en CSV pour PostgreSQL
+```
 file_path_cleaned = "data/ventes_clean.csv"
 df.to_csv(file_path_cleaned, index=False, encoding='utf-8')
 print("✅ Données nettoyées et sauvegardées !")
-
+```
 ---
 
 ## 🔹 Étape 3 : Chargement des données dans PostgreSQL
